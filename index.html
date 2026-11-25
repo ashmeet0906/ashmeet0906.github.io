@@ -1,0 +1,536 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Ashmeet Kaur | Digital Marketing, AI Automation, Research</title>
+<meta name="description" content="Portfolio of Ashmeet Kaur: digital marketing, CRM, AI agents, mobile apps, and the Smart Drop IoT delivery research.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=IBM+Plex+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --paper: #FFFFFF;
+    --surface: #F4F6FA;
+    --ink: #0A0A0A;
+    --muted: #5C6470;
+    --line: #D4D9E3;
+    --signal: #0F3A8F;
+    --deep: #0B1A40;
+    --deep-ink: #F5F7FA;
+    --deep-muted: #A3A3A3;
+    --serif: "Instrument Serif", "Iowan Old Style", Georgia, serif;
+    --sans: "IBM Plex Sans", "Segoe UI", system-ui, sans-serif;
+    box-sizing: border-box;
+    padding-top: env(safe-area-inset-top, 0px);
+    padding-bottom: env(safe-area-inset-bottom, 0px);
+  }
+  *, *::before, *::after { box-sizing: border-box; }
+  html { scroll-behavior: smooth; scroll-padding-top: 24px; color-scheme: light; }
+  body {
+    margin: 0;
+    background: var(--paper);
+    color: var(--ink);
+    font-family: var(--sans);
+    font-weight: 400;
+    font-size: 17px;
+    line-height: 1.65;
+  }
+  a { color: inherit; }
+  a:focus-visible, button:focus-visible { outline: 2px solid var(--signal); outline-offset: 3px; }
+  img, svg { max-width: 100%; }
+
+  .wrap { max-width: 1080px; margin: 0 auto; padding: 0 24px; }
+
+  /* Hero */
+  .hero { padding: 96px 0 72px; }
+  .hero h1 {
+    font-family: var(--serif);
+    font-weight: 400;
+    font-size: clamp(64px, 12vw, 152px);
+    line-height: 0.92;
+    letter-spacing: -0.02em;
+    margin: 0 0 40px;
+    animation: rise 900ms cubic-bezier(.2,.7,.2,1) both;
+  }
+  .hero h1 { color: #0A2A6B; }
+  .hero h1 em { font-style: italic; color: #0A2A6B; }
+  .lede {
+    max-width: 34em;
+    font-size: clamp(19px, 2.2vw, 23px);
+    line-height: 1.5;
+    font-weight: 300;
+    margin: 0 0 36px;
+  }
+  .links { display: flex; flex-wrap: wrap; gap: 8px 28px; font-weight: 500; }
+  .links a { text-decoration: none; border-bottom: 1px solid var(--ink); padding-bottom: 2px; }
+  .links a:hover { color: var(--signal); border-color: var(--signal); }
+
+  /* Ledger layout: heading in left rail, content on right */
+  .section {
+    display: grid;
+    grid-template-columns: 240px 1fr;
+    gap: 48px;
+    padding: 72px 0;
+    border-top: 1px solid var(--line);
+  }
+  .section > h2 {
+    font-family: var(--serif);
+    font-weight: 400;
+    font-size: 40px;
+    line-height: 1.05;
+    margin: 0;
+  }
+  .section > div > p { margin: 0 0 1.1em; max-width: 40em; }
+  .section > div > p:last-child { margin-bottom: 0; }
+
+  /* Experience */
+  .job { padding: 0 0 36px; margin: 0 0 36px; border-bottom: 1px solid var(--line); }
+  .job:last-child { border-bottom: 0; margin-bottom: 0; padding-bottom: 0; }
+  .job header { display: flex; flex-wrap: wrap; justify-content: space-between; gap: 4px 24px; align-items: baseline; }
+  .job h3 { font-size: 21px; font-weight: 600; margin: 0 0 4px; }
+  .job .meta { color: var(--muted); font-size: 15px; font-variant-numeric: tabular-nums; }
+  .job ul { margin: 14px 0 0; padding-left: 18px; }
+  .job li { margin-bottom: 6px; max-width: 42em; }
+
+  /* Research (dark band) */
+  .research-wrap { background: var(--deep); color: var(--deep-ink); }
+  .research-wrap .section { border-top: 0; }
+  .research-wrap .section > h2 { color: #FFFFFF; }
+  .research-wrap .section > div > p { color: var(--deep-ink); }
+  .research-wrap .muted { color: var(--deep-muted); }
+  .paper-title {
+    font-family: var(--serif);
+    font-size: clamp(34px, 5vw, 54px);
+    line-height: 1.05;
+    margin: 0 0 12px;
+    font-weight: 400;
+    color: #FFFFFF;
+  }
+  .byline { color: var(--deep-muted); margin: 0 0 32px; font-size: 15px; }
+  .flow { margin: 40px 0 8px; }
+  .flow svg { width: 100%; height: auto; display: block; }
+  .facts {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+    gap: 24px;
+    margin: 40px 0 0;
+    padding: 0;
+    list-style: none;
+    border-top: 1px solid #2E2E2E;
+    padding-top: 28px;
+  }
+  .facts strong { display: block; font-family: var(--serif); font-weight: 400; font-size: 38px; color: var(--signal); line-height: 1; margin-bottom: 8px; }
+  .facts span { color: var(--deep-muted); font-size: 15px; }
+  .stack { display: flex; flex-wrap: wrap; gap: 8px; margin: 24px 0 0; padding: 0; list-style: none; }
+  .stack li { border: 1px solid #2E2E2E; padding: 4px 12px; font-size: 14px; color: var(--deep-ink); }
+
+  /* Projects */
+  .project-list { list-style: none; margin: 0; padding: 0; }
+  .project-list li {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 2px;
+    padding: 20px 0;
+    border-bottom: 1px solid var(--line);
+  }
+  .project-list li:first-child { padding-top: 0; }
+  .project-list h3 { font-size: 19px; font-weight: 600; margin: 0; }
+  .project-list p { margin: 0; color: var(--muted); max-width: 40em; }
+  .tag { color: var(--signal); font-weight: 500; font-size: 14px; }
+
+  /* Skills */
+  .skill-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(230px, 1fr)); gap: 32px 40px; }
+  .skill-grid h3 { font-size: 16px; font-weight: 600; margin: 0 0 8px; }
+  .skill-grid p { margin: 0; color: var(--muted); font-size: 15px; line-height: 1.6; }
+
+  /* Education & certs */
+  .edu h3 { font-size: 18px; font-weight: 600; margin: 0 0 2px; }
+  .edu p { margin: 0 0 22px; color: var(--muted); }
+  .certs { margin: 0; padding: 0; list-style: none; }
+  .certs li { padding: 10px 0; border-bottom: 1px solid var(--line); }
+
+  /* Contact */
+  .contact { padding: 96px 0 120px; border-top: 1px solid var(--line); }
+  .contact p.big {
+    font-family: var(--serif);
+    font-size: clamp(40px, 7vw, 84px);
+    line-height: 1;
+    margin: 0 0 32px;
+  }
+  .contact a.mail { font-size: clamp(20px, 2.6vw, 28px); text-decoration: none; border-bottom: 2px solid var(--signal); }
+  .contact a.mail:hover { color: var(--signal); }
+  .foot { margin-top: 80px; color: var(--muted); font-size: 14px; }
+
+  .progress {
+    position: fixed;
+    top: 0; left: 0; right: 0;
+    height: 3px;
+    background: var(--signal);
+    transform-origin: 0 50%;
+    transform: scaleX(0);
+    z-index: 50;
+  }
+
+  .index {
+    display: none;
+    position: fixed;
+    left: 24px;
+    top: 50%;
+    transform: translateY(-50%);
+    flex-direction: column;
+    gap: 14px;
+    z-index: 40;
+  }
+  .index a {
+    text-decoration: none;
+    font-size: 14px;
+    color: var(--muted);
+    padding-left: 14px;
+    border-left: 2px solid var(--line);
+    transition: color 300ms ease, border-color 300ms ease;
+  }
+  .index a:hover { color: var(--ink); }
+  .index a.on { color: var(--ink); border-color: var(--signal); }
+  @media (min-width: 1240px) { .index { display: flex; } }
+
+  @keyframes rise {
+    from { opacity: 0; transform: translateY(18px); }
+    to { opacity: 1; transform: none; }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    html { scroll-behavior: auto; }
+    .hero h1 { animation: none; }
+  }
+
+  @media (max-width: 760px) {
+    .hero { padding: 64px 0 56px; }
+    .section { grid-template-columns: 1fr; gap: 20px; padding: 56px 0; }
+    .section > h2 { font-size: 34px; }
+    body { font-size: 16px; }
+  }
+  .cover .kicker, .cover h1 em, .stats strong, .facts strong, .research-wrap .section > h2 .num, .cover .kicker { color: #7FA8FF; }
+  .figbox [stroke="#0F3A8F"] { stroke: #7FA8FF; }
+  .figbox marker path { fill: #7FA8FF; }
+</style>
+</head>
+<body>
+<div class="progress" aria-hidden="true"></div>
+<nav class="index" aria-label="Sections">
+  <a href="#about">About</a>
+  <a href="#experience">Experience</a>
+  <a href="#research">Research</a>
+  <a href="#projects">Projects</a>
+  <a href="#skills">Skills</a>
+  <a href="#education">Education</a>
+  <a href="#contact">Contact</a>
+</nav>
+
+<header class="wrap hero">
+  <h1>Ashmeet<br><em>Kaur</em></h1>
+  <p class="lede">I run paid campaigns, build the CRM and AI automation behind them, and ship the apps and hardware that sit underneath. Data Science graduate from IIT Madras, B.Tech from JIIT Noida.</p>
+  <nav class="links" aria-label="Contact links">
+    <a href="mailto:k.ashmeet0906@gmail.com">Email</a>
+    <a href="https://www.linkedin.com/in/ashmeet-kaur-a96a76357/" target="_blank" rel="noopener">LinkedIn</a>
+    <a href="https://github.com/ashmeet0906" target="_blank" rel="noopener">GitHub</a>
+  </nav>
+</header>
+
+<main>
+  <div class="wrap">
+    <section class="section" id="about">
+      <h2>About</h2>
+      <div>
+        <p>My work sits where marketing meets engineering. On the marketing side I manage Google, Meta, Amazon and LinkedIn ad campaigns, social content, SEO, and Amazon and Flipkart listings. On the engineering side I connect those systems: CRM pipelines in Zoho, Salesforce and Dynamics 365, Shopify integrations built against the API, and agents that answer calls, reply on WhatsApp, and draft research.</p>
+        <p>I also build Android and cross-platform apps. Two of them, a minutes-of-meetings app and a field tracking app, are live on the Google Play Store. I hold Microsoft Azure AI-900 and AZ-900 certifications.</p>
+      </div>
+    </section>
+
+    <section class="section" id="experience">
+      <h2>Experience</h2>
+      <div>
+        <article class="job">
+          <header>
+            <div>
+              <h3>IT and Digital Marketing Executive, StarShield Technologies</h3>
+            </div>
+            <span class="meta">Jan 2025 to present</span>
+          </header>
+          <ul>
+            <li>Run Google, Facebook, Amazon and LinkedIn ad campaigns and direct the social content strategy.</li>
+            <li>Built an 11-agent email automation bundle, a voice calling agent, a chat agent, and a tender-filing agent.</li>
+            <li>Built and manage a 60+ resource Azure environment, including Microsoft Foundry projects, Azure OpenAI, Azure AI Search for RAG chatbots, and Azure Speech.</li>
+            <li>Deployed the TeleCRM backend and field tracking apps on Azure App Service, Functions and Container Apps.</li>
+          </ul>
+        </article>
+
+        <article class="job">
+          <header>
+            <div><h3>Growth Marketing Executive, AttendancePay Software Services</h3></div>
+            <span class="meta">Jun 2026 to Sep 2026 · Part-time, remote</span>
+          </header>
+          <ul>
+            <li>Ran Google Ads and Meta Ads for lead generation, including Meta Business Manager setup.</li>
+            <li>Led SEO work covering keyword research, on-page optimization and backlinks.</li>
+            <li>Set up WhatsApp Business automation for customer engagement.</li>
+          </ul>
+        </article>
+
+        <article class="job">
+          <header>
+            <div><h3>Software Engineer (Freelance), Edunext</h3></div>
+            <span class="meta">Jul 2025 to Dec 2025 · Remote</span>
+          </header>
+          <ul>
+            <li>Built SaasMaster, a full-stack AI-powered learning platform in React, TypeScript, Node.js, Express and PostgreSQL.</li>
+            <li>Designed the REST API, authentication, gamification, and the testing and CI/CD workflow.</li>
+          </ul>
+        </article>
+
+        <article class="job">
+          <header>
+            <div><h3>Machine Learning Intern, Bharat Electronics Limited</h3></div>
+          </header>
+          <ul>
+            <li>Contributed to an end-to-end machine learning project that detects friend or foe aircraft, with data cleaning in Python and Jupyter.</li>
+          </ul>
+        </article>
+
+        <article class="job">
+          <header>
+            <div><h3>Intern, Ottonomy IO</h3></div>
+          </header>
+          <ul>
+            <li>Built a robot tracking and mapping simulator in React JS, and a GNN-based model that estimates robot ETA in real time.</li>
+          </ul>
+        </article>
+      </div>
+    </section>
+  </div>
+
+  <div class="research-wrap" id="research">
+    <div class="wrap">
+      <section class="section">
+        <h2>Research</h2>
+        <div>
+          <h3 class="paper-title">Smart Drop</h3>
+          <p class="byline">An IoT-based solution for secure and efficient package handling. Ashmeet Kaur and Juhi Sharma, B.Tech Computer Science Engineering, Jaypee Institute of Information Technology, Noida. Supervised by Dr. Prakash Kumar.</p>
+
+          <p>Package theft, missed deliveries and poor delivery updates are a growing cost for e-commerce customers and logistics companies. Smart Drop is a locked delivery box that only opens for the right person. A user books a box and receives a one-time password. The delivery partner logs in with a six-digit employee ID, takes the order, and uses an OTP to open the box.</p>
+
+          <p>The hardware uses a Raspberry Pi 3 B+ and an Arduino Uno that talk over serial. A relay switches a 12 V electromagnetic lock, and a 3.5-inch LCD shows the box state. The software is a Flutter app backed by Firebase Authentication and Cloud Firestore, with separate flows for users and delivery partners.</p>
+
+          <div class="flow" aria-label="Smart Drop delivery flow">
+            <svg viewBox="0 0 960 150" role="img" xmlns="http://www.w3.org/2000/svg">
+              <defs>
+                <marker id="arr" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto">
+                  <path d="M0,0 L10,5 L0,10 z" fill="#0F3A8F"/>
+                </marker>
+              </defs>
+              <g font-family="IBM Plex Sans, Segoe UI, sans-serif" font-size="16" fill="#F5F7FA">
+                <rect x="10" y="40" width="200" height="70" fill="none" stroke="#2E2E2E" stroke-width="1.5"/>
+                <text x="110" y="82" text-anchor="middle">Box booked</text>
+                <line x1="214" y1="75" x2="250" y2="75" stroke="#0F3A8F" stroke-width="2" marker-end="url(#arr)"/>
+                <rect x="254" y="40" width="200" height="70" fill="none" stroke="#2E2E2E" stroke-width="1.5"/>
+                <text x="354" y="82" text-anchor="middle">OTP issued</text>
+                <line x1="458" y1="75" x2="494" y2="75" stroke="#0F3A8F" stroke-width="2" marker-end="url(#arr)"/>
+                <rect x="498" y="40" width="200" height="70" fill="none" stroke="#2E2E2E" stroke-width="1.5"/>
+                <text x="598" y="82" text-anchor="middle">Partner opens box</text>
+                <line x1="702" y1="75" x2="738" y2="75" stroke="#0F3A8F" stroke-width="2" marker-end="url(#arr)"/>
+                <rect x="742" y="40" width="208" height="70" fill="none" stroke="#2E2E2E" stroke-width="1.5"/>
+                <text x="846" y="82" text-anchor="middle">Order completed</text>
+              </g>
+            </svg>
+          </div>
+
+          <p>Twelve planned test cases passed. They cover registration, login, invalid-login handling, order creation, OTP generation, partner onboarding, order handling, the 5 V power supply, the EM lock's lock and unlock cycle, and Arduino to Raspberry Pi communication.</p>
+
+          <p>The report is candid about what is not finished. The current version sends no notifications by email, SMS or push. The EM lock needs continuous power to stay locked, so a backup supply is needed during outages. Future work includes delivery notifications, offline OTP handling, battery backup or solar power, end-to-end encryption, and multi-language support.</p>
+
+          <ul class="stack" aria-label="Technologies used">
+            <li>Flutter</li><li>Firebase Auth</li><li>Cloud Firestore</li><li>Raspberry Pi 3 B+</li><li>Arduino Uno</li><li>Python</li><li>EM lock and relay</li>
+          </ul>
+
+          <p class="reveal" style="margin:36px 0 0"><a href="https://claude.ai/artifact/TpzASGFTLBMDYCJvGCYUxE" target="_blank" rel="noopener" style="color:#0F3A8F;font-weight:500;font-size:18px;text-decoration:none;border-bottom:1px solid #0F3A8F;padding-bottom:2px">Read the full research paper &rarr;</a></p>
+
+          <ul class="facts">
+            <li><strong>12</strong><span>test cases, all passed</span></li>
+            <li><strong>2</strong><span>user roles: customer and delivery partner</span></li>
+            <li><strong>OTP</strong><span>controls access to every box</span></li>
+          </ul>
+        </div>
+      </section>
+    </div>
+  </div>
+
+  <div class="wrap">
+    <section class="section" id="projects">
+      <h2>Projects</h2>
+      <div>
+        <ul class="project-list">
+          <li>
+            <h3>Smart Drop</h3>
+            <p>OTP-secured IoT delivery box with a Flutter app and Firebase backend. Featured in the research section above.</p>
+          </li>
+          <li>
+            <h3>Splitr</h3>
+            <p>Money-splitting app with live calculations, separate user portals, bill scanning with PyTesseract, and monthly expense and loan charts. Built with React, Node.js, Express and MongoDB.</p>
+          </li>
+          <li>
+            <h3>Sukoon</h3>
+            <p>Stress-relief website that recommends audio, reading, yoga or laughter therapy through an ML model.</p>
+          </li>
+          <li>
+            <h3>English to Indian Sign Language converter</h3>
+            <p>Converts English text to ISL using NLP stop-word removal, lemmatization, stemming and HamNoSys avatar models. Built with Python, NLTK, Flask and Stanza.</p>
+          </li>
+          <li>
+            <h3>Minutes of Meetings app</h3>
+            <p>Android app published on the Google Play Store.</p>
+          </li>
+          <li>
+            <h3>Field Tracking app</h3>
+            <p>Flutter and React application for field tracking and employee monitoring. Published on the Google Play Store.</p>
+          </li>
+          <li>
+            <h3>Agentic AI suite</h3>
+            <p>Voice calling, chat, tender-filing, web search and research agents, plus an 11-agent email automation bundle. Also a WhatsApp auto-reply agent.</p>
+          </li>
+        </ul>
+      </div>
+    </section>
+
+    <section class="section" id="skills">
+      <h2>Skills</h2>
+      <div class="skill-grid">
+        <div>
+          <h3>Digital marketing</h3>
+          <p>Google Ads, Meta Ads, Amazon Ads, LinkedIn Ads, SEO, social media, Canva, Photoshop, OBS Studio.</p>
+        </div>
+        <div>
+          <h3>E-commerce and CRM</h3>
+          <p>Amazon and Flipkart listings, Shopify API integrations, WordPress, Zoho CRM, Salesforce, Odoo, Dynamics 365, TeleCRM.</p>
+        </div>
+        <div>
+          <h3>AI and automation</h3>
+          <p>OpenAI, Anthropic, Gemini and Azure OpenAI APIs, Azure AI Speech, ElevenLabs, Twilio, Exotel, Power Automate, Docker.</p>
+        </div>
+        <div>
+          <h3>Cloud</h3>
+          <p>Azure App Service, Functions, Container Apps, Azure AI Search, PostgreSQL, Redis, Application Insights, Microsoft Foundry.</p>
+        </div>
+        <div>
+          <h3>Development</h3>
+          <p>Python, JavaScript, C++, React, Flutter, Node.js, MongoDB, MySQL, Firebase, Git, Linux.</p>
+        </div>
+        <div>
+          <h3>Data and hardware</h3>
+          <p>Pandas, NumPy, Scikit-learn, Power BI, Tableau, Excel, Raspberry Pi, Arduino.</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="section edu" id="education">
+      <h2>Education</h2>
+      <div>
+        <h3>BS in Data Science, Indian Institute of Technology, Madras</h3>
+        <p>2021 to 2025</p>
+        <h3>B.Tech in Computer Science and Engineering, Jaypee Institute of Information Technology, Noida</h3>
+        <p>2021 to 2025</p>
+        <ul class="certs">
+          <li>Microsoft Certified: Azure AI Fundamentals (AI-900)</li>
+          <li>Microsoft Certified: Azure Fundamentals (AZ-900)</li>
+          <li>HackerRank Certification in SQL</li>
+          <li>HackerRank Certification in Python</li>
+        </ul>
+      </div>
+    </section>
+  </div>
+
+  <div class="wrap">
+    <section class="contact" id="contact">
+      <p class="big">Let's talk.</p>
+      <a class="mail" href="mailto:k.ashmeet0906@gmail.com">k.ashmeet0906@gmail.com</a>
+      <p class="foot">Ghaziabad, India</p>
+    </section>
+  </div>
+</main>
+
+<script>
+(function () {
+  var bar = document.querySelector('.progress');
+  function onScroll() {
+    var max = document.documentElement.scrollHeight - window.innerHeight;
+    var p = max > 0 ? window.scrollY / max : 0;
+    bar.style.transform = 'scaleX(' + p + ')';
+  }
+  window.addEventListener('scroll', onScroll, { passive: true });
+  onScroll();
+
+  if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+
+  var lines = document.querySelectorAll('.flow line');
+  lines.forEach(function (l) {
+    var len = l.getTotalLength();
+    l.style.strokeDasharray = len;
+    l.style.strokeDashoffset = len;
+    l.style.transition = 'stroke-dashoffset 900ms cubic-bezier(.4,0,.2,1)';
+  });
+
+  var flow = document.querySelector('.flow');
+  var io = new IntersectionObserver(function (entries) {
+    entries.forEach(function (e) {
+      if (e.isIntersecting) {
+        lines.forEach(function (l, i) {
+          setTimeout(function () { l.style.strokeDashoffset = 0; }, i * 350);
+        });
+        io.disconnect();
+      }
+    });
+  }, { threshold: 0.6 });
+  io.observe(flow);
+})();
+</script>
+
+<script>
+(function () {
+  var links = document.querySelectorAll('.index a');
+  var map = {};
+  links.forEach(function (a) { map[a.getAttribute('href').slice(1)] = a; });
+  var spy = new IntersectionObserver(function (entries) {
+    entries.forEach(function (e) {
+      if (e.isIntersecting && map[e.target.id]) {
+        links.forEach(function (a) { a.classList.remove('on'); });
+        map[e.target.id].classList.add('on');
+      }
+    });
+  }, { rootMargin: '-45% 0px -45% 0px' });
+  Object.keys(map).forEach(function (id) {
+    var t = document.getElementById(id);
+    if (t) spy.observe(t);
+  });
+
+  if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+
+  var items = document.querySelectorAll('.project-list li');
+  items.forEach(function (li, i) {
+    li.style.opacity = 0;
+    li.style.transform = 'translateY(16px)';
+    li.style.transition = 'opacity 700ms ease, transform 700ms cubic-bezier(.2,.7,.2,1)';
+    li.style.transitionDelay = (i % 3) * 90 + 'ms';
+  });
+  var reveal = new IntersectionObserver(function (entries) {
+    entries.forEach(function (e) {
+      if (e.isIntersecting) {
+        e.target.style.opacity = 1;
+        e.target.style.transform = 'none';
+        reveal.unobserve(e.target);
+      }
+    });
+  }, { threshold: 0.2 });
+  items.forEach(function (li) { reveal.observe(li); });
+})();
+</script>
+
+</body>
+</html>

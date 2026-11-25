@@ -1,0 +1,505 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Smart Drop: An IoT-Based Solution for Secure and Efficient Package Handling</title>
+<meta name="description" content="Research paper by Ashmeet Kaur and Juhi Sharma on Smart Drop, an OTP-secured IoT delivery box built with Flutter, Firebase, Raspberry Pi and Arduino.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=IBM+Plex+Sans:wght@300;400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --paper: #FFFFFF;
+    --surface: #F4F6FA;
+    --ink: #0A0A0A;
+    --muted: #5C6470;
+    --line: #D4D9E3;
+    --signal: #0F3A8F;
+    --deep: #0B1A40;
+    --deep-2: #132A5C;
+    --deep-ink: #F5F7FA;
+    --deep-muted: #A3A3A3;
+    --serif: "Instrument Serif", "Iowan Old Style", Georgia, serif;
+    --sans: "IBM Plex Sans", "Segoe UI", system-ui, sans-serif;
+    --mono: "IBM Plex Mono", ui-monospace, Menlo, monospace;
+    box-sizing: border-box;
+    padding-top: env(safe-area-inset-top, 0px);
+    padding-bottom: env(safe-area-inset-bottom, 0px);
+  }
+  *, *::before, *::after { box-sizing: border-box; }
+  html { scroll-behavior: smooth; scroll-padding-top: 32px; color-scheme: light; }
+  body {
+    margin: 0;
+    background: var(--paper);
+    color: var(--ink);
+    font-family: var(--sans);
+    font-size: 17px;
+    line-height: 1.7;
+  }
+  a { color: inherit; }
+  a:focus-visible, button:focus-visible { outline: 2px solid var(--signal); outline-offset: 3px; }
+  img, svg { max-width: 100%; }
+
+  .progress {
+    position: fixed; top: 0; left: 0; right: 0; height: 3px;
+    background: var(--signal); transform-origin: 0 50%; transform: scaleX(0); z-index: 60;
+  }
+
+  /* COVER */
+  .cover {
+    position: relative;
+    background: var(--deep);
+    color: var(--deep-ink);
+    overflow: hidden;
+    padding: 96px 0 88px;
+  }
+  .cover::before {
+    content: "";
+    position: absolute; inset: 0;
+    background-image:
+      linear-gradient(rgba(127,168,255,.16) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(127,168,255,.16) 1px, transparent 1px);
+    background-size: 56px 56px;
+    mask-image: radial-gradient(ellipse at 80% 20%, #000 0%, transparent 70%);
+    -webkit-mask-image: radial-gradient(ellipse at 80% 20%, #000 0%, transparent 70%);
+    pointer-events: none;
+  }
+  .wrap { max-width: 1120px; margin: 0 auto; padding: 0 28px; position: relative; }
+  .kicker {
+    font-family: var(--mono); font-size: 13px; color: var(--signal);
+    letter-spacing: .04em; margin: 0 0 28px;
+  }
+  .cover h1 {
+    font-family: var(--serif); font-weight: 400;
+    font-size: clamp(48px, 8.4vw, 110px);
+    line-height: .96; letter-spacing: -.02em;
+    margin: 0 0 36px; color: #FFFFFF; max-width: 14em;
+    animation: rise 900ms cubic-bezier(.2,.7,.2,1) both;
+  }
+  .cover h1 em { color: var(--signal); font-style: italic; }
+  .authors { font-size: 17px; margin: 0 0 6px; color: var(--deep-ink); }
+  .affil { font-size: 15px; color: var(--deep-muted); margin: 0 0 40px; }
+  .meta-row {
+    display: flex; flex-wrap: wrap; gap: 12px 36px;
+    border-top: 1px solid #2E2E2E; padding-top: 24px; font-size: 14px; color: var(--deep-muted);
+  }
+  .meta-row b { color: var(--deep-ink); font-weight: 500; }
+
+  .stats {
+    display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+    gap: 0; margin-top: 56px; border: 1px solid #2E2E2E;
+  }
+  .stats > div { padding: 24px 26px; border-right: 1px solid #2E2E2E; }
+  .stats > div:last-child { border-right: 0; }
+  .stats strong {
+    display: block; font-family: var(--serif); font-weight: 400;
+    font-size: 48px; line-height: 1; color: var(--signal); margin-bottom: 8px;
+  }
+  .stats span { font-size: 14px; color: var(--deep-muted); }
+
+  /* LAYOUT */
+  .article {
+    display: grid; grid-template-columns: 220px minmax(0, 1fr); gap: 64px;
+    max-width: 1120px; margin: 0 auto; padding: 88px 28px 40px;
+  }
+  .toc { position: sticky; top: 40px; align-self: start; font-size: 14px; }
+  .toc h2 { font-family: var(--mono); font-size: 12px; font-weight: 500; color: var(--muted); letter-spacing: .04em; margin: 0 0 16px; }
+  .toc ol { list-style: none; margin: 0; padding: 0; border-left: 1px solid var(--line); }
+  .toc li a {
+    display: block; text-decoration: none; padding: 6px 0 6px 16px; margin-left: -1px;
+    border-left: 2px solid transparent; color: var(--muted); transition: color .3s, border-color .3s;
+  }
+  .toc li a:hover { color: var(--ink); }
+  .toc li a.on { color: var(--ink); border-left-color: var(--signal); }
+  .toc .num { font-family: var(--mono); font-size: 12px; margin-right: 8px; color: var(--signal); }
+
+  .body { max-width: 720px; min-width: 0; }
+  .body h2 {
+    font-family: var(--serif); font-weight: 400; font-size: clamp(38px, 4.6vw, 56px);
+    line-height: 1.02; letter-spacing: -.01em; margin: 96px 0 24px; scroll-margin-top: 40px;
+  }
+  .body h2 .num { display: block; font-family: var(--mono); font-size: 13px; color: var(--signal); letter-spacing: .04em; margin-bottom: 14px; }
+  .body h3 { font-size: 20px; font-weight: 600; margin: 44px 0 12px; scroll-margin-top: 40px; }
+  .body p { margin: 0 0 1.25em; }
+  .body p.lead { font-size: 22px; line-height: 1.55; font-weight: 300; color: var(--ink); }
+  .body strong { font-weight: 600; }
+  .body ul { padding-left: 20px; margin: 0 0 1.25em; }
+  .body li { margin-bottom: 8px; }
+
+  /* Abstract */
+  .abstract {
+    background: var(--surface); border: 1px solid var(--line); border-left: 4px solid var(--signal);
+    padding: 32px 36px; margin: 0 0 16px;
+  }
+  .abstract h2 { margin: 0 0 18px; font-size: 34px; }
+  .abstract p { font-size: 16.5px; margin-bottom: 1em; }
+  .keywords { font-family: var(--mono); font-size: 13px; color: var(--muted); margin: 18px 0 0; }
+
+  /* Pull quote */
+  .pull {
+    font-family: var(--serif); font-size: clamp(30px, 3.6vw, 42px); line-height: 1.18;
+    margin: 72px -60px; padding: 0 0 0 28px; border-left: 2px solid var(--signal);
+    color: var(--ink); max-width: none;
+  }
+  .pull small { display: block; font-family: var(--sans); font-size: 14px; color: var(--muted); margin-top: 16px; }
+
+  /* Figures */
+  figure { margin: 48px 0; }
+  figure svg { width: 100%; height: auto; display: block; }
+  figcaption { font-size: 14px; color: var(--muted); margin-top: 14px; line-height: 1.55; }
+  figcaption b { font-family: var(--mono); font-weight: 500; color: var(--ink); font-size: 13px; margin-right: 6px; }
+  .figbox { background: var(--deep); padding: 28px 24px; }
+
+  /* Requirements grid */
+  .reqs { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 0; border-top: 1px solid var(--line); margin: 32px 0 40px; }
+  .reqs div { padding: 22px 20px 22px 0; border-bottom: 1px solid var(--line); }
+  .reqs strong { display: block; font-size: 16px; margin-bottom: 6px; }
+  .reqs span { font-size: 15px; color: var(--muted); line-height: 1.55; display: block; }
+
+  /* Tables */
+  .tbl-wrap { overflow-x: auto; margin: 32px 0 40px; }
+  table { width: 100%; border-collapse: collapse; font-size: 15px; min-width: 520px; }
+  th, td { text-align: left; padding: 12px 14px 12px 0; border-bottom: 1px solid var(--line); vertical-align: top; }
+  th { font-family: var(--mono); font-weight: 500; font-size: 12px; color: var(--muted); letter-spacing: .03em; }
+  td.id { font-family: var(--mono); font-size: 13px; color: var(--muted); white-space: nowrap; }
+  td.pass { font-family: var(--mono); font-size: 13px; color: var(--ink); }
+  td.pass::before { content: "● "; color: var(--signal); }
+
+  /* Limitations callout */
+  .callout {
+    background: var(--surface); border: 1px solid var(--line); padding: 26px 28px; margin: 40px 0;
+  }
+  .callout h3 { margin-top: 0; }
+  .callout p:last-child { margin-bottom: 0; }
+
+  /* Refs */
+  .refs { list-style: none; padding: 0; margin: 0; font-size: 15px; }
+  .refs li { padding: 14px 0 14px 46px; border-top: 1px solid var(--line); position: relative; margin: 0; }
+  .refs li::before { content: attr(data-n); position: absolute; left: 0; font-family: var(--mono); font-size: 13px; color: var(--signal); top: 16px; }
+  .refs a { word-break: break-all; }
+
+  /* Dark closing band */
+  .closing { background: var(--deep); color: var(--deep-ink); margin-top: 96px; padding: 88px 0; }
+  .closing h2 { color: #FFFFFF; margin-top: 0; }
+  .closing p { color: var(--deep-ink); }
+  .closing .mute { color: var(--deep-muted); font-size: 15px; }
+
+  .footer { max-width: 1120px; margin: 0 auto; padding: 40px 28px 60px; font-size: 14px; color: var(--muted); }
+
+  .reveal { opacity: 0; transform: translateY(18px); transition: opacity 800ms ease, transform 800ms cubic-bezier(.2,.7,.2,1); }
+  .reveal.in { opacity: 1; transform: none; }
+
+  @keyframes rise { from { opacity: 0; transform: translateY(18px); } to { opacity: 1; transform: none; } }
+
+  @media (max-width: 960px) {
+    .article { grid-template-columns: 1fr; gap: 0; padding-top: 56px; }
+    .toc { display: none; }
+    .pull { margin: 56px 0; }
+  }
+  @media (max-width: 640px) {
+    body { font-size: 16px; }
+    .cover { padding: 64px 0 56px; }
+    .abstract { padding: 24px; }
+    .body h2 { margin-top: 72px; }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    html { scroll-behavior: auto; }
+    .cover h1 { animation: none; }
+    .reveal { opacity: 1; transform: none; transition: none; }
+  }
+  .cover .kicker, .cover h1 em, .stats strong, .facts strong, .research-wrap .section > h2 .num, .cover .kicker { color: #7FA8FF; }
+  .figbox [stroke="#0F3A8F"] { stroke: #7FA8FF; }
+  .figbox marker path { fill: #7FA8FF; }
+</style>
+</head>
+<body>
+
+<div class="progress" aria-hidden="true"></div>
+
+<header class="cover">
+  <div class="wrap">
+    <p class="kicker">Research paper / B.Tech Computer Science Engineering / JIIT Noida</p>
+    <h1>Smart Drop: <em>an IoT-based</em> solution for secure package handling</h1>
+    <p class="authors">Ashmeet Kaur and Juhi Sharma</p>
+    <p class="affil">Department of Computer Science Engineering and Information Technology, Jaypee Institute of Information Technology, Noida. Supervisor: Dr. Prakash Kumar.</p>
+    <div class="meta-row">
+      <span><b>Keywords</b> IoT, OTP authentication, Flutter, Firebase, Raspberry Pi</span>
+      <span><b>Reading time</b> about 20 minutes</span>
+    </div>
+    <div class="stats">
+      <div><strong>12</strong><span>numbered test cases, all passed</span></div>
+      <div><strong>2</strong><span>roles: customer and delivery partner</span></div>
+      <div><strong>9</strong><span>hardware components in the build</span></div>
+      <div><strong>OTP</strong><span>gates every box opening</span></div>
+    </div>
+  </div>
+</header>
+
+<div class="article">
+  <nav class="toc" aria-label="Paper contents">
+    <h2>CONTENTS</h2>
+    <ol>
+      <li><a href="#abstract"><span class="num">--</span>Abstract</a></li>
+      <li><a href="#intro"><span class="num">01</span>Introduction</a></li>
+      <li><a href="#requirements"><span class="num">02</span>Requirements</a></li>
+      <li><a href="#design"><span class="num">03</span>Design and implementation</a></li>
+      <li><a href="#testing"><span class="num">04</span>Testing</a></li>
+      <li><a href="#findings"><span class="num">05</span>Findings and future work</a></li>
+      <li><a href="#references"><span class="num">06</span>References</a></li>
+    </ol>
+  </nav>
+
+  <main class="body">
+    <section class="abstract reveal" id="abstract">
+      <h2>Abstract</h2>
+      <p>Growth in e-commerce has increased package theft, delivery errors, and poor delivery updates. Smart Drop is an IoT-enabled delivery box that opens only after a one-time password is verified. Delivery partners sign in with a six-digit employee ID and use the OTP shown in the app to open a box, while customers book a box and see the OTP and order details in the same app.</p>
+      <p>The hardware couples a Raspberry Pi 3 B+ with an Arduino Uno over serial. A relay switches a 12 V electromagnetic lock, and a 3.5-inch LCD displays box state. The software is a Flutter application backed by Firebase Authentication and Cloud Firestore. All twelve numbered test cases and an Arduino to Raspberry Pi communication test passed. The paper also reports two open limitations: the system sends no notifications, and the lock needs continuous power to stay engaged.</p>
+      <p class="keywords">Keywords: IoT, smart delivery box, OTP authentication, Flutter, Firebase Firestore, Raspberry Pi, Arduino Uno, EM lock</p>
+    </section>
+
+    <section id="intro">
+      <h2 class="reveal"><span class="num">01</span>Introduction</h2>
+      <p class="lead reveal">Online shopping has made doorstep delivery the norm, and the last meter of that delivery is where things break down.</p>
+      <p class="reveal">Packages left unattended are frequently stolen. Manual processes produce misrouted and incorrect deliveries. Customers often have no real-time view of where their parcel is. Current systems also struggle to adapt to residential buildings, offices, and shared spaces, which each need different handling.</p>
+      <p class="reveal">The Internet of Things offers a practical response. Smart Drop uses connected hardware and a cloud backend to automate access, monitor the delivery, and give both parties a shared view of the order.</p>
+
+      <h3 class="reveal">1.1 The problem</h3>
+      <p class="reveal">The paper identifies four weaknesses in conventional delivery systems: vulnerability to theft at unattended drop points, operational inefficiency from manual handling, weak communication with the customer, and inflexibility across environments with different needs.</p>
+
+      <div class="pull reveal">
+        A secure, transparent and efficient package delivery solution is needed to meet modern demand.
+        <small>Problem statement, Chapter 1</small>
+      </div>
+
+      <h3 class="reveal">1.2 Significance</h3>
+      <p class="reveal">For customers, a locked box with an OTP reduces theft risk and adds visibility. For businesses, fewer re-deliveries and insurance claims lower costs and protect brand reputation. More broadly, the project aims to set a benchmark for secure delivery in residential and commercial settings.</p>
+    </section>
+
+    <section id="requirements">
+      <h2 class="reveal"><span class="num">02</span>Requirements and solution approach</h2>
+      <p class="reveal">The system has two halves that meet in the cloud. A Flutter mobile app serves both user roles, Firebase handles identity and real-time data, and a Raspberry Pi with an Arduino Uno controls the physical lock.</p>
+
+      <div class="reqs reveal">
+        <div><strong>Flutter</strong><span>Single codebase UI toolkit for mobile, with hot reload during development.</span></div>
+        <div><strong>Firebase</strong><span>Authentication, Cloud Firestore for orders and users, and real-time sync.</span></div>
+        <div><strong>Python</strong><span>Hardware control and serial communication on the Raspberry Pi.</span></div>
+        <div><strong>Raspberry Pi Imager</strong><span>Used to prepare the operating system image on the Pi's SD card.</span></div>
+      </div>
+
+      <p class="reveal">The solution approach ran in five stages: requirements gathering from stakeholders, architecture design across frontend and backend, Flutter front-end development, Firebase back-end services, and database design with role-based access control for users and delivery partners.</p>
+    </section>
+
+    <section id="design">
+      <h2 class="reveal"><span class="num">03</span>Design and implementation</h2>
+
+      <h3 class="reveal">3.1 Hardware architecture</h3>
+      <p class="reveal">The Raspberry Pi is the central processor. It talks to the Arduino over serial, drives the LCD, and synchronises with the cloud. The Arduino switches the relay, which in turn powers the 12 V electromagnetic lock.</p>
+
+      <figure class="reveal">
+        <div class="figbox">
+          <svg viewBox="0 0 900 340" role="img" aria-label="Hardware block diagram" xmlns="http://www.w3.org/2000/svg">
+            <defs>
+              <marker id="ah" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto">
+                <path d="M0,0 L10,5 L0,10 z" fill="#0F3A8F"/>
+              </marker>
+            </defs>
+            <g font-family="IBM Plex Sans, Segoe UI, sans-serif" font-size="16" fill="#F5F7FA" stroke="#3A3A3A" stroke-width="1.5">
+              <rect x="590" y="20" width="250" height="64" fill="#171717"/>
+              <rect x="40" y="120" width="210" height="74" fill="#171717"/>
+              <rect x="330" y="120" width="230" height="74" fill="#171717"/>
+              <rect x="640" y="120" width="200" height="74" fill="#171717"/>
+              <rect x="40" y="236" width="210" height="64" fill="#171717"/>
+              <rect x="330" y="236" width="230" height="64" fill="#171717"/>
+            </g>
+            <g font-family="IBM Plex Sans, Segoe UI, sans-serif" font-size="16" fill="#F5F7FA" text-anchor="middle">
+              <text x="715" y="58">Firebase (cloud)</text>
+              <text x="145" y="155">Arduino Uno</text>
+              <text x="445" y="155">Raspberry Pi 3 B+</text>
+              <text x="740" y="155">3.5-inch LCD</text>
+              <text x="145" y="273">Relay</text>
+              <text x="445" y="273">EM lock (12 V)</text>
+            </g>
+            <g stroke="#0F3A8F" stroke-width="2" fill="none" marker-end="url(#ah)">
+              <line x1="250" y1="157" x2="330" y2="157"/>
+              <line x1="560" y1="157" x2="640" y2="157"/>
+              <line x1="440" y1="120" x2="590" y2="60"/>
+              <line x1="145" y1="194" x2="145" y2="236"/>
+              <line x1="250" y1="268" x2="330" y2="268"/>
+            </g>
+            <g font-family="IBM Plex Mono, ui-monospace, monospace" font-size="12" fill="#A3A3A3" text-anchor="middle">
+              <text x="290" y="148">serial</text>
+              <text x="600" y="148">display</text>
+              <text x="520" y="92">cloud sync</text>
+              <text x="170" y="220">control</text>
+              <text x="290" y="260">switch</text>
+            </g>
+          </svg>
+        </div>
+        <figcaption><b>Fig. 1</b>Hardware block diagram. The Arduino drives the relay that powers the EM lock, while the Raspberry Pi coordinates the display and cloud sync.</figcaption>
+      </figure>
+
+      <p class="reveal">Wiring follows the report's connection notes. The Arduino's TX, RX, and ground pins connect to the Raspberry Pi's RX, TX, and ground. The relay's control input comes from pin 7 of the Arduino, and the relay is powered from the Arduino's 5 V pin through a breadboard. The EM lock sits on the relay's output and is fed by a 12 V supply, and the Raspberry Pi runs from a 5 V supply.</p>
+
+      <h3 class="reveal">3.2 Software: the two interfaces</h3>
+      <p class="reveal">The Flutter application is organised around the two user groups. Each group has its own entry route from the landing screen.</p>
+
+      <p class="reveal"><strong>Customer flow.</strong> Customers sign up with name, email, phone and password, and then log in through Firebase Authentication. From the order screen they can book a box by entering a delivery address and selecting an order. The order is written to Firestore, and the order details and OTP are shown on a summary screen.</p>
+
+      <p class="reveal"><strong>Delivery partner flow.</strong> Partners register with their name, six-digit employee ID, phone and password. Once logged in, they see the orders waiting for pickup. Each order card offers a Get OTP action to open the box, a Completed action to mark delivery, and a Map action to view the pickup address.</p>
+
+      <figure class="reveal">
+        <div class="figbox">
+          <svg viewBox="0 0 960 150" role="img" aria-label="Delivery flow" xmlns="http://www.w3.org/2000/svg">
+            <defs>
+              <marker id="af" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto">
+                <path d="M0,0 L10,5 L0,10 z" fill="#0F3A8F"/>
+              </marker>
+            </defs>
+            <g stroke="#3A3A3A" stroke-width="1.5" fill="none">
+              <rect x="10" y="40" width="200" height="70"/>
+              <rect x="254" y="40" width="200" height="70"/>
+              <rect x="498" y="40" width="200" height="70"/>
+              <rect x="742" y="40" width="208" height="70"/>
+            </g>
+            <g font-family="IBM Plex Sans, Segoe UI, sans-serif" font-size="16" fill="#F5F7FA" text-anchor="middle">
+              <text x="110" y="82">Box booked</text>
+              <text x="354" y="82">OTP issued</text>
+              <text x="598" y="82">Partner opens box</text>
+              <text x="846" y="82">Order completed</text>
+            </g>
+            <g stroke="#0F3A8F" stroke-width="2" fill="none" marker-end="url(#af)">
+              <line x1="214" y1="75" x2="250" y2="75"/>
+              <line x1="458" y1="75" x2="494" y2="75"/>
+              <line x1="702" y1="75" x2="738" y2="75"/>
+            </g>
+          </svg>
+        </div>
+        <figcaption><b>Fig. 2</b>Order lifecycle from booking to completion. The OTP is the only way the box opens during delivery.</figcaption>
+      </figure>
+
+      <h3 class="reveal">3.3 Data model</h3>
+      <p class="reveal">Firestore holds five collections. <strong>Users</strong> store email, name and phone. <strong>Addresses</strong> store apartment, city, state, country, zone and timestamp. <strong>Orders</strong> hold the box ID, OTP, pickup address, user ID and timestamp. <strong>Delivery</strong> stores partner employee ID, name and phone. <strong>Completed orders</strong> keep the box ID, phone and pickup address once a delivery is closed. Authentication stores each user's email and UID.</p>
+
+      <h3 class="reveal">3.4 Known issues</h3>
+      <p class="reveal">Three issues came out of implementation. The app does not yet send notifications by email, phone or any other channel. The EM lock needs a continuous supply to remain locked, so a delivery partner needs a backup supply during pickup and drop. The app also uses stateful widgets where stateless ones would be lighter, which increases memory use and battery drain.</p>
+    </section>
+
+    <section id="testing">
+      <h2 class="reveal"><span class="num">04</span>Testing</h2>
+      <p class="reveal">Testing combined manual test cases with automated checks. The plan used Selenium and Postman for UI and API testing, tracked bugs in project management tools, and ran regression tests after each code change. Every numbered test case passed.</p>
+
+      <div class="tbl-wrap reveal">
+        <table>
+          <thead>
+            <tr><th>ID</th><th>Test case</th><th>Expected result</th><th>Result</th></tr>
+          </thead>
+          <tbody>
+            <tr><td class="id">TC001</td><td>User registration</td><td>Form submits successfully</td><td class="pass">Pass</td></tr>
+            <tr><td class="id">TC002</td><td>User login</td><td>Valid credentials log in</td><td class="pass">Pass</td></tr>
+            <tr><td class="id">TC003</td><td>Invalid login attempt</td><td>Error message shown</td><td class="pass">Pass</td></tr>
+            <tr><td class="id">TC004</td><td>Order creation</td><td>Order details submit successfully</td><td class="pass">Pass</td></tr>
+            <tr><td class="id">TC005</td><td>OTP on user side</td><td>Dialog shows the OTP</td><td class="pass">Pass</td></tr>
+            <tr><td class="id">TC006</td><td>Delivery partner registration</td><td>Form submits successfully</td><td class="pass">Pass</td></tr>
+            <tr><td class="id">TC007</td><td>Delivery partner login</td><td>Valid credentials log in</td><td class="pass">Pass</td></tr>
+            <tr><td class="id">TC008</td><td>Secure user authentication</td><td>Valid credentials grant access</td><td class="pass">Pass</td></tr>
+            <tr><td class="id">TC009</td><td>Take orders for partners</td><td>Complete, OTP and map actions work</td><td class="pass">Pass</td></tr>
+            <tr><td class="id">TC010</td><td>Bug checking</td><td>Issues identified with multiple tools</td><td class="pass">Pass</td></tr>
+            <tr><td class="id">TC011</td><td>Power supply verification</td><td>All components powered</td><td class="pass">Pass</td></tr>
+            <tr><td class="id">TC012</td><td>EM lock operation</td><td>Lock and unlock on command</td><td class="pass">Pass</td></tr>
+            <tr><td class="id">--</td><td>Arduino to Raspberry Pi communication</td><td>Signals exchanged both ways</td><td class="pass">Pass</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <h3 class="reveal">4.1 Error handling</h3>
+      <p class="reveal">Failed OTP entry prompts a retry or generates a new code. Sensors or locks that fail to respond are flagged and reported. During network loss, essential data is stored locally and synced once the connection returns. Invalid box IDs or delivery details raise an exception for correction, and input fields are validated in real time.</p>
+
+      <div class="callout reveal">
+        <h3>4.2 Limitations</h3>
+        <p>The system has no notification channel, so customers and partners are not alerted when a delivery moves on. The EM lock depends on continuous power, so an outage needs an external backup to keep the box secure. Both limits are real constraints on the current prototype rather than theoretical concerns.</p>
+      </div>
+    </section>
+
+    <section id="findings">
+      <h2 class="reveal"><span class="num">05</span>Findings and future work</h2>
+      <p class="reveal">The OTP gate worked as intended in testing and reduced unauthorised access to packages. Firebase delivered real-time updates across both interfaces. The hardware performed reliably in controlled conditions but showed limits under sustained use or harsh environments.</p>
+      <p class="reveal">Future iterations are planned in four areas. Notifications would keep both parties informed of each step. Offline support would let the box accept OTPs locally during connectivity loss. Battery or solar backup would address power outages, and end-to-end encryption, multi-factor authentication, and tamper-resistant materials would harden security. Multi-language support and AI-driven delivery analytics are also on the roadmap.</p>
+
+      <div class="pull reveal">
+        Smart Drop shows that a low-cost IoT box with OTP access can make package delivery safer and more transparent.
+        <small>Conclusion, Chapter 5</small>
+      </div>
+    </section>
+
+    <section id="references">
+      <h2 class="reveal"><span class="num">06</span>References</h2>
+      <ol class="refs reveal">
+        <li data-n="[1]">S. K. Verma, "IoT-Based Smart Delivery Box," Academia.edu, 2024.</li>
+        <li data-n="[2]">M. A. Khan and R. P. Gupta, "Development of a Remote Tracking Security Box with Multi-Factor Authentication System Incorporates with a Biometric Sensing Device," Journal of Security and Privacy, vol. 8, no. 3, pp. 34-45, 2023.</li>
+        <li data-n="[3]">A. J. Smith and L. M. Johnson, "Smart Modular Parcel Locker System Using Internet of Things (IoT)," Journal of Smart Logistics, vol. 5, no. 2, pp. 123-134, 2022.</li>
+        <li data-n="[4]">M. A. Khan and R. P. Gupta, "Design and Implementation of Smart Delivery Box," IJCRT, vol. 9, no. 1, pp. 1-10, 2021.</li>
+        <li data-n="[5]"><a href="https://www.amazon.com/b?node=21222091011&ref_=ms_kfg_surl_key" target="_blank" rel="noopener">https://www.amazon.com/b?node=21222091011&amp;ref_=ms_kfg_surl_key</a></li>
+        <li data-n="[6]"><a href="https://www.parcelguard.com/" target="_blank" rel="noopener">https://www.parcelguard.com/</a></li>
+        <li data-n="[7]"><a href="https://cleveron.com/" target="_blank" rel="noopener">https://cleveron.com/</a></li>
+        <li data-n="[8]"><a href="https://www.yalehome.com/in/en" target="_blank" rel="noopener">https://www.yalehome.com/in/en</a></li>
+      </ol>
+    </section>
+  </main>
+</div>
+
+<section class="closing">
+  <div class="wrap">
+    <h2 class="reveal">Read the full work</h2>
+    <p class="reveal">Smart Drop was built by Ashmeet Kaur and Juhi Sharma as their B.Tech project in Computer Science Engineering at JIIT Noida.</p>
+    <p class="mute reveal">Ashmeet Kaur · k.ashmeet0906@gmail.com</p>
+  </div>
+</section>
+
+<footer class="footer">Smart Drop research paper. Figures are redrawn for the web from the project's hardware and software design.</footer>
+
+<script>
+(function () {
+  var bar = document.querySelector('.progress');
+  function onScroll() {
+    var max = document.documentElement.scrollHeight - window.innerHeight;
+    bar.style.transform = 'scaleX(' + (max > 0 ? window.scrollY / max : 0) + ')';
+  }
+  window.addEventListener('scroll', onScroll, { passive: true });
+  onScroll();
+
+  var links = document.querySelectorAll('.toc li a');
+  var map = {};
+  links.forEach(function (a) { map[a.getAttribute('href').slice(1)] = a; });
+  var spy = new IntersectionObserver(function (entries) {
+    entries.forEach(function (e) {
+      if (e.isIntersecting && map[e.target.id]) {
+        links.forEach(function (a) { a.classList.remove('on'); });
+        map[e.target.id].classList.add('on');
+      }
+    });
+  }, { rootMargin: '-40% 0px -55% 0px' });
+  Object.keys(map).forEach(function (id) {
+    var t = document.getElementById(id);
+    if (t) spy.observe(t);
+  });
+
+  var reveals = document.querySelectorAll('.reveal');
+  if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+    reveals.forEach(function (el) { el.classList.add('in'); });
+    return;
+  }
+  var io = new IntersectionObserver(function (entries) {
+    entries.forEach(function (e) {
+      if (e.isIntersecting) {
+        e.target.classList.add('in');
+        io.unobserve(e.target);
+      }
+    });
+  }, { threshold: 0.15 });
+  reveals.forEach(function (el) { io.observe(el); });
+})();
+</script>
+
+</body>
+</html>
