@@ -3,22 +3,15 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<title>Ashmeet Kaur | IoT and Robotics</title>
-<meta name="description" content="Portfolio of Ashmeet Kaur: IoT systems, embedded hardware, robot tracking and ETA models, and the Smart Drop research project.">
+<title>Ashmeet Kaur | IoT, Robotics and Digital Marketing</title>
+<meta name="description" content="Portfolio of Ashmeet Kaur: IoT and robotics projects, the Smart Drop research, digital marketing, CRM, and AI automation.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=IBM+Plex+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
 <style>
   :root {
-    --paper: #FFFFFF;
-    --surface: #F4F6FA;
-    --ink: #0A0A0A;
-    --muted: #5C6470;
-    --line: #D4D9E3;
-    --signal: #0F3A8F;
-    --deep: #0B1A40;
-    --deep-ink: #F5F7FA;
-    --deep-muted: #A3B4CC;
+    --paper: #FFFFFF; --surface: #F4F6FA; --ink: #0A0A0A; --muted: #5C6470; --line: #D4D9E3;
+    --signal: #0F3A8F; --deep: #0B1A40; --deep-ink: #F5F7FA; --deep-muted: #A3B4CC;
     --serif: "Instrument Serif", "Iowan Old Style", Georgia, serif;
     --sans: "IBM Plex Sans", "Segoe UI", system-ui, sans-serif;
     box-sizing: border-box;
@@ -36,13 +29,14 @@
   .progress { position: fixed; top: 0; left: 0; right: 0; height: 3px; background: var(--signal); transform-origin: 0 50%; transform: scaleX(0); z-index: 50; }
 
   .hero { padding: 96px 0 72px; }
-  .hero .kicker { font-family: var(--sans); font-size: 14px; font-weight: 500; color: var(--signal); margin: 0 0 20px; letter-spacing: .02em; }
+  .hero .kicker { font-size: 14px; font-weight: 500; color: var(--signal); margin: 0 0 20px; letter-spacing: .02em; }
   .hero h1 { font-family: var(--serif); font-weight: 400; font-size: clamp(64px, 12vw, 152px); line-height: 0.92; letter-spacing: -0.02em; margin: 0 0 40px; color: #0A2A6B; animation: rise 900ms cubic-bezier(.2,.7,.2,1) both; }
   .hero h1 em { font-style: italic; color: #0A2A6B; }
   .lede { max-width: 36em; font-size: clamp(19px, 2.2vw, 23px); line-height: 1.5; font-weight: 300; margin: 0 0 36px; }
   .links { display: flex; flex-wrap: wrap; gap: 8px 28px; font-weight: 500; }
   .links a { text-decoration: none; border-bottom: 1px solid var(--ink); padding-bottom: 2px; }
   .links a:hover { color: var(--signal); border-color: var(--signal); }
+  .links a.cta { color: var(--signal); border-color: var(--signal); }
 
   .index { display: none; position: fixed; left: 24px; top: 50%; transform: translateY(-50%); flex-direction: column; gap: 14px; z-index: 40; }
   .index a { text-decoration: none; font-size: 14px; color: var(--muted); padding-left: 14px; border-left: 2px solid var(--line); transition: color 300ms ease, border-color 300ms ease; }
@@ -55,7 +49,6 @@
   .section > div > p { margin: 0 0 1.1em; max-width: 40em; }
   .section > div > p:last-child { margin-bottom: 0; }
 
-  /* Featured research band */
   .feature { background: var(--deep); color: var(--deep-ink); }
   .feature .section { border-top: 0; }
   .feature .section > h2 { color: #FFFFFF; }
@@ -70,7 +63,6 @@
   .stack li { border: 1px solid #22345A; padding: 4px 12px; font-size: 14px; color: var(--deep-ink); }
   .paper-link { display: inline-block; margin-top: 36px; color: #7FA8FF; font-weight: 500; font-size: 18px; text-decoration: none; border-bottom: 1px solid #7FA8FF; padding-bottom: 2px; }
   .paper-link:hover { color: #FFFFFF; border-color: #FFFFFF; }
-
   .flow { margin: 40px 0 8px; }
   .flow svg { width: 100%; height: auto; display: block; }
 
@@ -89,7 +81,7 @@
   .job ul { margin: 14px 0 0; padding-left: 18px; }
   .job li { margin-bottom: 6px; max-width: 42em; }
 
-  .skill-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(230px, 1fr)); gap: 32px 40px; }
+  .skill-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 32px 40px; }
   .skill-grid h3 { font-size: 16px; font-weight: 600; margin: 0 0 8px; color: var(--signal); }
   .skill-grid p { margin: 0; color: var(--muted); font-size: 15px; line-height: 1.6; }
 
@@ -100,9 +92,10 @@
 
   .contact { padding: 96px 0 120px; border-top: 1px solid var(--line); }
   .contact p.big { font-family: var(--serif); font-size: clamp(40px, 7vw, 84px); line-height: 1; margin: 0 0 32px; }
-  .contact a.mail { font-size: clamp(20px, 2.6vw, 28px); text-decoration: none; border-bottom: 2px solid var(--signal); }
-  .contact a.mail:hover { color: var(--signal); }
-  .foot { margin-top: 80px; color: var(--muted); font-size: 14px; }
+  .contact .lines { display: flex; flex-direction: column; gap: 10px; }
+  .contact a.mail, .contact a.tel { font-size: clamp(20px, 2.6vw, 28px); text-decoration: none; border-bottom: 2px solid var(--signal); width: fit-content; }
+  .contact a:hover { color: var(--signal); }
+  .foot { margin-top: 60px; color: var(--muted); font-size: 14px; }
 
   .reveal { opacity: 0; transform: translateY(16px); transition: opacity 700ms ease, transform 700ms cubic-bezier(.2,.7,.2,1); }
   .reveal.in { opacity: 1; transform: none; }
@@ -135,12 +128,13 @@
 </nav>
 
 <header class="wrap hero">
-  <p class="kicker">IoT and robotics</p>
+  <p class="kicker">Software Engineer | AI &amp; Machine Learning | Data Science | Python | Flutter &amp; React | IoT &amp; Robotics</p>
   <h1>Ashmeet<br><em>Kaur</em></h1>
-  <p class="lede">I build connected hardware and intelligent robots. From a locked smart delivery box running on Raspberry Pi and Arduino to machine learning models that estimate when a robot will arrive.</p>
+  <p class="lede">I build connected hardware and robot software, and I run the digital marketing, CRM, and AI automation that goes with them. I'm a multitasker who manages time well and keeps several projects moving at once. B.Tech in Computer Science Engineering from JIIT Noida, BS in Data Science from IIT Madras.</p>
   <nav class="links" aria-label="Links">
+    <a href="resume.pdf" download class="cta">Download resume (PDF)</a>
     <a href="#featured">Featured research</a>
-    <a href="paper.html" target="_blank" rel="noopener">Research paper</a>
+    <a href="paper.html">Research paper</a>
     <a href="mailto:k.ashmeet0906@gmail.com">Email</a>
     <a href="https://www.linkedin.com/in/ashmeet-kaur-a96a76357/" target="_blank" rel="noopener">LinkedIn</a>
     <a href="https://github.com/ashmeet0906" target="_blank" rel="noopener">GitHub</a>
@@ -152,8 +146,9 @@
     <section class="section" id="about">
       <h2>About</h2>
       <div>
-        <p>My focus is the point where software meets physical machines. I write the hardware control code, the serial communication between boards, the cloud backend that coordinates them, and the mobile app people use to interact with them.</p>
-        <p>I have built embedded systems with Raspberry Pi and Arduino, tracking and mapping software for robots, and machine learning models, including a friend or foe aircraft detection model. I hold a B.Tech in Computer Science Engineering from JIIT Noida and a BS in Data Science from IIT Madras, along with Microsoft Azure AI-900 and AZ-900 certifications.</p>
+        <p>My main focus is IoT and robotics: embedded hardware built with Raspberry Pi and Arduino, serial communication between boards, cloud backends, and the mobile apps that run on top of them. I have also built tracking and mapping software for robots and machine learning models, including a friend or foe aircraft detection model.</p>
+        <p>Alongside the engineering, I have run digital marketing and CRM work: Google, Meta, Amazon and LinkedIn ads, social media content, SEO, Amazon and Flipkart listings, and CRM pipelines in Zoho, Salesforce and Dynamics 365. I also build the automation that connects these tools, including WhatsApp agents and email workflows.</p>
+        <p>I am organized, communicate clearly with teams and clients, and can handle several things at the same time without losing track of deadlines. My interest in robotics keeps me motivated: I am ambitious, determined, and a hard worker who keeps learning and building.</p>
       </div>
     </section>
   </div>
@@ -206,7 +201,7 @@
             <li><strong>OTP</strong><span>gates every box opening</span></li>
           </ul>
 
-          <a class="paper-link" href="paper.html" target="_blank" rel="noopener">Read the full research paper &rarr;</a>
+          <a class="paper-link" href="paper.html">Read the full research paper &rarr;</a>
         </div>
       </section>
     </div>
@@ -220,7 +215,7 @@
           <li class="reveal">
             <span class="tag">IoT · Embedded · Cloud</span>
             <h3>Smart Drop</h3>
-            <p>OTP-secured smart delivery box with Raspberry Pi, Arduino, relay-controlled EM lock, LCD display, Flutter app, and Firebase backend. Featured above.</p>
+            <p>OTP-secured smart delivery box with Raspberry Pi, Arduino, a relay-controlled EM lock, an LCD display, a Flutter app, and a Firebase backend. Featured above.</p>
           </li>
           <li class="reveal">
             <span class="tag">Robotics · Mapping · ML</span>
@@ -228,14 +223,24 @@
             <p>Built a robot tracking and mapping simulator in React JS, similar to Google Maps. Developed a graph neural network model that estimates robot ETA in real time, and added UI features to an existing robot tracking portal. Built during an internship at Ottonomy IO.</p>
           </li>
           <li class="reveal">
-            <span class="tag">Machine learning · Sensing</span>
+            <span class="tag">Machine learning · Defence electronics</span>
             <h3>Friend or foe aircraft detection</h3>
-            <p>Contributed to an end-to-end machine learning project that detects friend and foe aircraft. Handled data cleaning in Python and Jupyter. Built during an internship at Bharat Electronics Limited.</p>
+            <p>Contributed to an end-to-end machine learning project that detects friend and foe aircraft, with data cleaning in Python and Jupyter. Built during an internship at Bharat Electronics Limited.</p>
           </li>
           <li class="reveal">
             <span class="tag">Mobile · Tracking</span>
             <h3>Field Tracking app</h3>
             <p>Flutter and React application for field tracking and employee monitoring, with the backend deployed on Azure. Published on the Google Play Store.</p>
+          </li>
+          <li class="reveal">
+            <span class="tag">AI · Automation · CRM</span>
+            <h3>Agentic AI suite</h3>
+            <p>Voice calling, chat, tender-filing, web search and research agents, plus an 11-agent email automation bundle, built at StarShield Technologies.</p>
+          </li>
+          <li class="reveal">
+            <span class="tag">Mobile · Android</span>
+            <h3>Minutes of Meetings app</h3>
+            <p>Android app published on the Google Play Store.</p>
           </li>
         </ul>
       </div>
@@ -246,47 +251,59 @@
       <div>
         <article class="job reveal">
           <header>
-            <div><h3>Intern, Ottonomy IO</h3></div>
-            <span class="meta">Robotics</span>
+            <div><h3>Intern, Ottonomy Inc</h3><p class="meta" style="margin:2px 0 0">Noida, Uttar Pradesh, India · On-site</p></div>
+            <span class="meta">Jul 2024 to Oct 2024</span>
           </header>
-          <ul>
-            <li>Built a robot tracking and mapping simulator in React JS.</li>
-            <li>Developed a GNN-based model that calculates robot ETA in real time.</li>
-            <li>Added UI functionality to the existing robot tracking portal.</li>
-          </ul>
+          
+          <ul><li>Built a robot tracking and mapping simulator in React JS, similar to Google Maps.</li><li>Developed a GNN-based model that calculates the ETA of a robot in real time.</li><li>Added UI functionality to the existing robot tracking portal.</li></ul>
         </article>
-
         <article class="job reveal">
           <header>
-            <div><h3>Machine Learning Intern, Bharat Electronics Limited</h3></div>
-            <span class="meta">Defence electronics</span>
+            <div><h3>Machine Learning Intern, Bharat Electronics Limited</h3><p class="meta" style="margin:2px 0 0">Bharat Electronics Limited</p></div>
+            <span class="meta">May 2024 to Aug 2024</span>
           </header>
-          <ul>
-            <li>Researched radars and antennas and how radars detect friend and foe air traffic.</li>
-            <li>Contributed to the end-to-end ML model for friend and foe aircraft detection, using Python and Jupyter for data cleaning.</li>
-          </ul>
+          
+          <ul><li>Conducted in-depth research on radars and antennas, focusing on friend and foe air traffic detection.</li><li>Contributed to an end-to-end machine learning project aimed at identifying friend and foe airplanes.</li><li>Used Python and Jupyter Notebook for data cleaning and preparation.</li><li>Collaborated with a team at Bharat Electronics Limited to build machine learning and data analysis skills.</li></ul>
         </article>
-
         <article class="job reveal">
           <header>
-            <div><h3>IT Executive, StarShield Technologies Pvt Ltd</h3></div>
+            <div><h3>Digital Marketing Associate &amp; Software Developer</h3><p class="meta" style="margin:2px 0 0">Starshield, Smart Paints &amp; Coatings · Full-time · Ghaziabad, Uttar Pradesh, India · Hybrid</p></div>
             <span class="meta">Jan 2025 to present</span>
           </header>
-          <ul>
-            <li>Built and manage a 60+ resource Azure environment, including Azure App Service, Azure Functions, Container Apps, Azure PostgreSQL, Redis, and Application Insights monitoring with metric alerts.</li>
-            <li>Deployed the backend and field tracking apps on Azure and set up the networking and storage they depend on.</li>
-            <li>Built a Microsoft voice agent with Azure AI Speech and Azure OpenAI.</li>
-          </ul>
+          
+          <ul><li>Managed Google, Meta, Amazon and LinkedIn Ads campaigns.</li><li>Managed Amazon and Flipkart listings and marketplace operations.</li><li>Built Shopify API integrations to reduce reliance on paid third-party apps.</li><li>Designed a suite of agentic AI tools: voice calling, chat, research, web search, and tender-filing agents, plus an 11-agent email automation bundle.</li><li>Built an auto WhatsApp reply agent.</li><li>Published a minutes of meetings app and a field tracking app on the Google Play Store.</li><li>Developed TeleCRM (for callers and salespeople), an AI business card scanner, and paint calculators.</li></ul>
         </article>
-
         <article class="job reveal">
           <header>
-            <div><h3>Software Engineer (Freelance), Edunext</h3></div>
+            <div><h3>Information Technology Executive</h3><p class="meta" style="margin:2px 0 0">StarShield Technologies Pvt Ltd</p></div>
+            <span class="meta">2025 to present</span>
+          </header>
+          
+          <ul><li>Managed Google Ads, Facebook Ads, Amazon Ads and LinkedIn Ads campaigns, and social media marketing.</li><li>Directed the social media content strategy and the creation of posts.</li><li>Managed the company website and its CRM (Zoho, Salesforce, Microsoft Dynamics 365 CRM, Microsoft Customer Service).</li><li>Worked with Odoo and Zoho CRM to automate lead and workflow tasks.</li><li>Created and managed Amazon and Flipkart e-commerce listings, including marketplace management across platforms.</li><li>Built Shopify API connections with other apps to reduce dependence on third-party Shopify apps.</li><li>Built a Microsoft voice agent using Azure AI Speech and Azure OpenAI.</li><li>Built and managed a 60+ resource Azure environment across multiple resource groups, including Microsoft Foundry AI projects, Azure OpenAI, Azure AI Search for RAG chatbots, and Azure Speech services.</li><li>Deployed web apps, APIs, and container apps on Azure App Service, Azure Functions and Azure Container Apps, including the TeleCRM backend and field tracking apps.</li><li>Set up supporting infrastructure: Azure PostgreSQL for TeleCRM, Redis cache, storage accounts, virtual networks, and monitoring with Application Insights and metric alerts.</li><li>Built automated workflows with Power Automate flows and Azure services.</li></ul>
+        </article>
+        <article class="job reveal">
+          <header>
+            <div><h3>Growth Marketing Executive</h3><p class="meta" style="margin:2px 0 0">AttendancePay Software Services · Part-time · Remote · South Delhi, India</p></div>
+            <span class="meta">Jun 2026 to Sep 2026</span>
+          </header>
+          
+          <ul><li>Managed and optimized Google Ads and Meta (Facebook) Ads campaigns for lead generation, brand awareness, and customer acquisition.</li><li>Set up and managed Meta Business Manager and Facebook Business assets from scratch.</li><li>Conducted keyword research and SEO, including on-page optimization and backlink building.</li><li>Researched and implemented digital marketing strategies based on business goals, target audience, campaign performance, and market trends.</li><li>Analyzed campaign performance and improved targeting, keywords, creatives, budgets and overall campaign effectiveness.</li><li>Set up WhatsApp Business automation for customer engagement and lead management.</li></ul>
+        </article>
+        <article class="job reveal">
+          <header>
+            <div><h3>Software Engineer (Freelance)</h3><p class="meta" style="margin:2px 0 0">Edunext · Remote · Delhi, India</p></div>
             <span class="meta">Jul 2025 to Dec 2025</span>
           </header>
-          <ul>
-            <li>Built the REST API, data models, and CI/CD workflow for a full-stack learning platform in React, TypeScript, Node.js, and PostgreSQL.</li>
-          </ul>
+          
+          <ul><li>Developed a scalable full-stack educational SaaS platform, SaasMaster, focused on personalized learning, assessments, memory profiling, progress tracking and gamification.</li><li>Built the frontend with React, TypeScript, Tailwind CSS, Radix UI and React Query, using reusable, responsive UI components.</li><li>Developed a Node.js and Express REST API with endpoints for courses, enrollments, assessments, user profiles, progress, rewards and analytics.</li><li>Designed and integrated a PostgreSQL database using Drizzle ORM, including data models for users, courses, lessons, enrollments, assessments, points and rewards.</li><li>Implemented OAuth-based authentication and session management using Replit OIDC, with role-based user access.</li><li>Built a personalized learning and memory assessment system, including memory profiling and spaced-repetition scheduling for lesson revision.</li><li>Implemented gamification with points, streaks, badges, rewards, reward redemption and notifications.</li><li>Built assessment and testing workflows with automated score tracking, pass-status management, user statistics and progress analytics.</li><li>Designed the backend architecture with separated routes, database operations, schemas, authentication and API layers.</li><li>Planned testing and deployment workflows covering unit, integration, end-to-end, accessibility, CI/CD, database migrations and performance monitoring.</li></ul>
+        </article>
+        <article class="job reveal">
+          <header>
+            <div><h3>Intern, Achal Welfare Association</h3><p class="meta" style="margin:2px 0 0">Achal Welfare Foundation · Internship · Ghaziabad, Uttar Pradesh, India · On-site</p></div>
+            <span class="meta">May 2022 to Jul 2022</span>
+          </header>
+          
+          <ul><li>Developed videos and digital posters, managed social media handles, and handled CRM.</li><li>Taught various subjects to high school students.</li><li>Organized women empowerment, women hygiene, and good touch and bad touch events in schools.</li><li>Organized plantation, food, and sanitary napkin distribution drives.</li><li>Developed the frontend of the organization's website using ReactJS, CSS and Bootstrap.</li></ul>
         </article>
       </div>
     </section>
@@ -295,28 +312,48 @@
       <h2>Skills</h2>
       <div class="skill-grid">
         <div class="reveal">
-          <h3>Embedded and hardware</h3>
-          <p>Raspberry Pi, Arduino Uno, serial communication (TX/RX), relays, EM locks, LCD interfacing, TinkerCad.</p>
+          <h3>IoT and embedded</h3>
+          <p>Raspberry Pi, Arduino UNO, serial communication, relays, EM locks, LCD interfacing, Tinkercad.</p>
         </div>
         <div class="reveal">
-          <h3>Robotics and mapping</h3>
-          <p>Robot tracking and mapping, real-time ETA estimation, graph neural networks, React-based map interfaces.</p>
+          <h3>Robotics and ML</h3>
+          <p>Robot tracking and mapping, real-time ETA with graph neural networks, Python, NumPy, Pandas, Scikit-learn, Matplotlib, Seaborn, Jupyter.</p>
         </div>
         <div class="reveal">
-          <h3>Machine learning and data</h3>
-          <p>Python, NumPy, Pandas, Scikit-learn, Matplotlib, Seaborn, Jupyter, data cleaning and scraping, Excel, Power BI, Tableau.</p>
+          <h3>Digital marketing</h3>
+          <p>Google Ads, Meta (Facebook) Ads, Amazon Ads, LinkedIn Ads, SEO, social media marketing, social post direction, Canva, OBS Studio.</p>
         </div>
         <div class="reveal">
-          <h3>IoT and cloud</h3>
-          <p>Firebase Authentication and Firestore, Azure App Service, Azure Functions, Container Apps, Azure AI Speech, Application Insights, Docker, MongoDB, MySQL.</p>
+          <h3>E-commerce</h3>
+          <p>Amazon listings and marketplace management, Flipkart listings, Shopify (custom API integrations), WordPress.</p>
+        </div>
+        <div class="reveal">
+          <h3>CRM and sales tools</h3>
+          <p>Zoho CRM (lead and workflow automation), Salesforce, Odoo, Microsoft Dynamics 365 CRM, Microsoft Customer Service, TeleCRM, Tableau.</p>
+        </div>
+        <div class="reveal">
+          <h3>AI and automation</h3>
+          <p>ChatGPT, Anthropic Claude, Gemini and Azure OpenAI APIs, Azure AI Speech, ElevenLabs, Exotel, Twilio, WhatsApp auto-reply agents, Power Automate, Docker.</p>
+        </div>
+        <div class="reveal">
+          <h3>Cloud and Azure</h3>
+          <p>Microsoft Foundry, Azure App Service, Azure Functions, Azure Container Apps, Azure AI Search, Azure PostgreSQL, Azure Cache for Redis, Application Insights, Azure Monitor, Power Platform, Dataverse.</p>
         </div>
         <div class="reveal">
           <h3>Software and mobile</h3>
-          <p>Flutter, React, Node.js, JavaScript, TypeScript, C++, MATLAB, Git, Linux.</p>
+          <p>Flutter, React JS, Node.js, Express, JavaScript, TypeScript, Python, C++, MATLAB, HTML, CSS, Material UI, Figma.</p>
         </div>
         <div class="reveal">
-          <h3>Networking and tools</h3>
-          <p>Wireshark, Linux commands, Virtual Networks, VS Code, Eclipse, Git and GitHub.</p>
+          <h3>Databases and data</h3>
+          <p>MongoDB (Atlas, Compass), MySQL, PostgreSQL, PL/SQL, MS Access, Excel, Power BI, Tableau, QGIS, Data scraping.</p>
+        </div>
+        <div class="reveal">
+          <h3>Tools</h3>
+          <p>Git and GitHub, Linux commands, Wireshark, VS Code, Docker, Firebase, Office (PowerPoint, Word, Excel, Access).</p>
+        </div>
+        <div class="reveal">
+          <h3>Strengths</h3>
+          <p>Multitasking and time management, organization, clear communication, determination and hard work, ambition, and a strong interest in robotics.</p>
         </div>
       </div>
     </section>
@@ -341,7 +378,10 @@
   <div class="wrap">
     <section class="contact" id="contact">
       <p class="big">Let's build something.</p>
-      <a class="mail" href="mailto:k.ashmeet0906@gmail.com">k.ashmeet0906@gmail.com</a>
+      <div class="lines">
+        <a class="mail" href="mailto:k.ashmeet0906@gmail.com">k.ashmeet0906@gmail.com</a>
+        <a class="tel" href="tel:+919289814430">+91 92898 14430</a>
+      </div>
       <p class="foot">Ghaziabad, India</p>
     </section>
   </div>
@@ -385,7 +425,7 @@
         io.unobserve(e.target);
       }
     });
-  }, { threshold: 0.2 });
+  }, { threshold: 0.15 });
   reveals.forEach(function (el) { io.observe(el); });
 })();
 </script>
